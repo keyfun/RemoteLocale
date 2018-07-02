@@ -40,16 +40,20 @@ object LocaleManager {
         val to = cacheFolder + rootFile
         FileCache.DownloadTask {
             Log.d(TAG, "RemoteVersion = $it")
-            gotRootFile(it.orEmpty())
+            gotRootFile(it)
         }.execute(from, to)
     }
 
-    private fun gotRootFile(data: String) {
-        remoteVersion = VersionModel(data)
-        remoteVersion.printString()
+    private fun gotRootFile(data: String?) {
+        data?.let {
+            remoteVersion = VersionModel(it)
+            remoteVersion.printString()
 
-        if (isValidVersion()) {
-            downloadLocaleFiles()
+            if (isValidVersion()) {
+                downloadLocaleFiles()
+            }
+        } ?: run {
+            callback?.invoke(null)
         }
     }
 

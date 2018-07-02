@@ -19,12 +19,19 @@ object FileCache {
     class DownloadTask(private val callback: ((data: String?) -> Unit)) : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String? {
             Log.d(TAG, params.contentToString())
-            return downloadFile(params[0].toString(), params[1].toString())
+            val result = downloadFile(params[0].toString(), params[1].toString())
+            if (result == null) {
+                Log.d(TAG, "task cancelled")
+                this.cancel(true)
+                return null
+            } else {
+                return result
+            }
         }
 
         override fun onPreExecute() {
             super.onPreExecute()
-            Log.d(LocaleManager.TAG, "onPreExecute")
+            Log.d(TAG, "onPreExecute")
         }
 
         override fun onPostExecute(result: String?) {
@@ -50,8 +57,8 @@ object FileCache {
         try {
             val data = connection.inputStream.bufferedReader().readText()
             writeFile(toLocalFilePath, data)
-//            Log.d(TAG, data)
-            return data
+            Log.d(TAG, data)
+//            return data
         } catch (ex: Exception) {
             Log.d(LocaleManager.TAG, ex.toString())
         } finally {
