@@ -67,8 +67,8 @@ object FileCache {
         return null
     }
 
-    fun loadFile(file: String): String? {
-        val dest = File(file)
+    fun loadFile(filePath: String): String? {
+        val dest = File(filePath)
         if (!dest.exists()) {
             return null
         }
@@ -92,6 +92,14 @@ object FileCache {
             // handle the exception
             Log.d(TAG, e.toString())
         }
+    }
+
+    fun removeFile(filePath: String) {
+
+    }
+
+    fun copyFile(fromPath: String, toPath: String) {
+
     }
 
 }

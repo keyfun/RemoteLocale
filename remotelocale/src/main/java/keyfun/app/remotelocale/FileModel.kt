@@ -1,6 +1,5 @@
 package keyfun.app.remotelocale
 
-import android.util.Log
 import org.json.JSONObject
 
 data class FileModel(val json: String) : JSONObject(json) {
@@ -26,10 +25,6 @@ data class FileModel(val json: String) : JSONObject(json) {
             }
         }
 //        Log.d(TAG, data.toString())
-    }
-
-    fun printString() {
-        Log.d(TAG, this.toString())
     }
 
 }
