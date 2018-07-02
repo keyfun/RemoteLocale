@@ -22,7 +22,7 @@ data class VersionModel(val json: String) : JSONObject(json) {
     }
 
     fun getString(locale: String, key: String): String {
-        return ""
+        return files?.first { it.locale == locale }?.data?.get(key).orEmpty()
     }
 
     fun getDate(): Date {

@@ -29,5 +29,11 @@ class MainActivity : AppCompatActivity() {
     private fun updateText(string: String) {
         val tv: TextView = this.findViewById(R.id.textView)
         tv.text = string
+
+        val tc = LocaleManager.getString("tc", "app_name")
+        val sc = LocaleManager.getString("sc", "app_name")
+        val en = LocaleManager.getString("en", "app_name")
+
+        tv.text = String.format("%s\n%s\n%s\n%s", string, tc, sc, en)
     }
 }

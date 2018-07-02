@@ -36,7 +36,7 @@ object FileCache {
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-//            Log.d(LocaleManager.TAG, "onPostExecute = $result")
+            Log.d(TAG, "onPostExecute = $result")
             callback.invoke(result)
         }
     }
@@ -57,8 +57,8 @@ object FileCache {
         try {
             val data = connection.inputStream.bufferedReader().readText()
             writeFile(toLocalFilePath, data)
-            Log.d(TAG, data)
-//            return data
+//            Log.d(TAG, data)
+            return data
         } catch (ex: Exception) {
             Log.d(LocaleManager.TAG, ex.toString())
         } finally {

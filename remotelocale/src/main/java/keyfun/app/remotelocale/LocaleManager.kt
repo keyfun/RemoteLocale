@@ -29,7 +29,19 @@ object LocaleManager {
         Log.d(TAG, "versionStr = $versionStr")
         versionStr?.let {
             localVersion = VersionModel(it)
-            // TODO: load all languages data
+            // load all languages data
+            localVersion.files?.let {
+                loadLocaleFiles(it)
+            }
+        }
+    }
+
+    private fun loadLocaleFiles(files: List<FileModel>) {
+        files.forEach {
+            val data = FileCache.loadFile(cacheFolder + it.filePath)
+            if (data != null) {
+                it.setData(data)
+            }
         }
     }
 
@@ -47,10 +59,12 @@ object LocaleManager {
     private fun gotRootFile(data: String?) {
         data?.let {
             remoteVersion = VersionModel(it)
-            remoteVersion.printString()
+//            remoteVersion.printString()
 
             if (isValidVersion()) {
                 downloadLocaleFiles()
+            } else {
+                callback?.invoke(null)
             }
         } ?: run {
             callback?.invoke(null)
@@ -58,8 +72,8 @@ object LocaleManager {
     }
 
     private fun isValidVersion(): Boolean {
-        Log.d(TAG, "remoteVersion = ${remoteVersion.getDate()}")
-        Log.d(TAG, "localVersion = ${localVersion.getDate()}")
+//        Log.d(TAG, "remoteVersion = ${remoteVersion.getDate()}")
+//        Log.d(TAG, "localVersion = ${localVersion.getDate()}")
         return remoteVersion.getDate().after(localVersion.getDate())
     }
 
@@ -77,7 +91,21 @@ object LocaleManager {
         }
     }
 
+    // from remote data
     private fun gotLocaleFile(locale: String, data: String) {
         Log.d(TAG, "locale = $locale \ndata = $data")
+        remoteVersion.files?.first { it.locale == locale }?.setData(data)
+    }
+
+    private fun getVersion(): VersionModel {
+        if (isValidVersion()) {
+            return remoteVersion
+        } else {
+            return localVersion
+        }
+    }
+
+    fun getString(locale: String, key: String): String {
+        return getVersion().getString(locale, key)
     }
 }

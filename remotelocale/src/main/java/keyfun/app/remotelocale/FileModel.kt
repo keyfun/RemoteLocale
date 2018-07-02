@@ -3,20 +3,29 @@ package keyfun.app.remotelocale
 import android.util.Log
 import org.json.JSONObject
 
-data class FileModel(val json: String): JSONObject(json) {
+data class FileModel(val json: String) : JSONObject(json) {
 
     private val TAG = "FileModel"
     var locale: String = ""
     var filePath: String = ""
-    var data: Map<String, String> = HashMap()
+    var data: HashMap<String, String> = HashMap()
 
     init {
         locale = this.getString("locale")
         filePath = this.getString("file_path")
     }
 
-    fun setData(data: HashMap<String, String>) {
-        this.data = data
+    fun setData(jsonString: String) {
+        val json = JSONObject(jsonString)
+        val keys = json.keys()
+        while (keys.hasNext()) {
+            val key = keys.next() as String
+            if (json.get(key) is String) {
+                val value = json.get(key).toString()
+                data[key] = value
+            }
+        }
+//        Log.d(TAG, data.toString())
     }
 
     fun printString() {
