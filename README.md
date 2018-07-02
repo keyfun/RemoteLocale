@@ -1,0 +1,2 @@
+# RemoteLocale
+Kotlin Remote Locale
