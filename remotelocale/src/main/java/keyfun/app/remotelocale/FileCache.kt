@@ -11,11 +11,6 @@ object FileCache {
 
     const val TAG = "FileCache"
 
-//    interface OnEventListener<T> {
-//        fun onSuccess(`object`: T)
-//        fun onFailure(e: Exception)
-//    }
-
     class DownloadTask(private val callback: ((data: String?) -> Unit)) : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String? {
             Log.d(TAG, params.contentToString())
@@ -31,22 +26,22 @@ object FileCache {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            Log.d(TAG, "onPreExecute")
+//            Log.d(TAG, "onPreExecute")
         }
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            Log.d(TAG, "onPostExecute = $result")
+//            Log.d(TAG, "onPostExecute = $result")
             callback.invoke(result)
         }
     }
 
-    fun initConfig(cacheFolder: String) {
-        val folder = File(cacheFolder)
+    fun initConfig(targetFolder: String) {
+        val folder = File(targetFolder)
         Log.d(TAG, folder.absolutePath)
         var success = true
         if (!folder.exists()) {
-            success = folder.mkdir()
+            success = folder.mkdirs()
         }
         Log.d(TAG, "${folder.absolutePath} $success")
     }
@@ -68,13 +63,13 @@ object FileCache {
     }
 
     fun loadFile(filePath: String): String? {
-        val dest = File(filePath)
-        if (!dest.exists()) {
+        val file = File(filePath)
+        if (!file.exists()) {
             return null
         }
 
         try {
-            val inputStream = dest.inputStream()
+            val inputStream = file.inputStream()
             return inputStream.bufferedReader().use { it.readText() }
         } catch (ex: Exception) {
             Log.d(LocaleManager.TAG, ex.toString())
@@ -84,22 +79,28 @@ object FileCache {
     }
 
     private fun writeFile(filePath: String, data: String) {
-        val dest = File(filePath)
-        Log.d(LocaleManager.TAG, dest.absolutePath)
+        val file = File(filePath)
+        Log.d(LocaleManager.TAG, file.absolutePath)
         try {
-            PrintWriter(dest).use { out -> out.println(data) }
+            PrintWriter(file).use { out -> out.println(data) }
         } catch (e: Exception) {
-            // handle the exception
             Log.d(TAG, e.toString())
         }
     }
 
-    fun removeFile(filePath: String) {
-
+    fun deleteFolder(filePath: String) {
+        val file = File(filePath)
+        if (file.exists()) {
+            file.deleteRecursively()
+        }
     }
 
-    fun copyFile(fromPath: String, toPath: String) {
-
+    fun copyFilesInFolder(fromPath: String, toPath: String) {
+        val fromFolder = File(fromPath)
+        if (fromFolder.exists() && fromFolder.isDirectory) {
+            val toFolder = File(toPath)
+            fromFolder.copyRecursively(toFolder, true)
+        }
     }
 
 }
