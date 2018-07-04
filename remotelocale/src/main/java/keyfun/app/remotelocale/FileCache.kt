@@ -24,11 +24,6 @@ object FileCache {
             }
         }
 
-        override fun onPreExecute() {
-            super.onPreExecute()
-//            Log.d(TAG, "onPreExecute")
-        }
-
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
 //            Log.d(TAG, "onPostExecute = $result")
