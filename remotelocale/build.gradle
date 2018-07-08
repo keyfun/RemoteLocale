@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 27
 
-
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 27
@@ -37,3 +35,5 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+apply from: 'publish.gradle'
