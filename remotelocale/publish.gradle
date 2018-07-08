@@ -7,7 +7,7 @@ group 'keyfun.app'
 publishing {
     publications {
         Production(MavenPublication) {
-            artifact("$buildDir/outputs/aar/app-release.aar")
+            artifact("$buildDir/outputs/aar/remotelocale-release.aar")
             groupId
             artifactId 'remotelocale'
             version this.version
@@ -38,12 +38,12 @@ bintray {
     override = true
     pkg {
         repo = 'maven'
-        name = 'RemoteLoale'
+        name = 'remote-locale'
         description = "A light weight Remote Locale for Andorid"
         publish = true
         publicDownloadNumbers = true
         licenses = ['MIT']
-        vcsUrl = 'https://github.com/keyfun/RemoteLocale.git'
+        vcsUrl = 'https://github.com/keyfun/RemoteLocale'
         dryRun = true
         version {
             name = this.version
