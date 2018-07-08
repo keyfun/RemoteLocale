@@ -1,27 +1,3 @@
-//ext {
-//    bintrayRepo = 'maven'
-//    bintrayName = 'RemoteLoale'
-//
-//    publishedGroupId = 'keyfun.app'
-//    libraryName = 'RemoteLoale'
-//    artifact = 'remotelocale' // must same as package name
-//
-//    libraryDescription = 'A light weight Remote Locale for Andorid'
-//
-//    siteUrl = 'https://github.com/keyfun/RemoteLocale'
-//    gitUrl = 'https://github.com/keyfun/RemoteLocale.git'
-//
-//    libraryVersion = '1.0.0'
-//
-//    developerId = 'keyfun'
-//    developerName = 'Key Fun'
-//    developerEmail = 'keyfun.hk@gmail.com'
-//
-//    licenseName = 'The Apache Software License, Version 2.0'
-//    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//    allLicenses = ["Apache-2.0"]
-//}
-
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
