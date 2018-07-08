@@ -39,11 +39,11 @@ bintray {
     pkg {
         repo = 'maven'
         name = 'remote-locale'
-        description = "A light weight Remote Locale for Andorid"
+        description = "A light weight Remote Locale for Android"
         publish = true
         publicDownloadNumbers = true
         licenses = ['MIT']
-        vcsUrl = 'https://github.com/keyfun/RemoteLocale'
+        vcsUrl = 'https://github.com/keyfun/RemoteLocale.git'
         dryRun = true
         version {
             name = this.version
