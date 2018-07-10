@@ -6,5 +6,6 @@ Kotlin Remote Locale
 
 # Gradle Install
 ```
-compile 'keyfun.app:remotelocale:1.0.0'
+implementation 'keyfun.app:remotelocale:1.0.0'
+
 ```

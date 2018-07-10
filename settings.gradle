@@ -1,2 +1,2 @@
-//include ':app',':remotelocale'
-include ':remotelocale'
+include ':app',':remotelocale'
+//include ':remotelocale'
