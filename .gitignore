@@ -26,3 +26,4 @@ gradle.properties
 local.properties
 build
 .idea
+app.iml
